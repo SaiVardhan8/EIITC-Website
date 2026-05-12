@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    ports:
+      - "9040:9040"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    # Uncomment below if you want to use a .env file
+    # env_file:
+    #   - .env
+    # Add database or other services below as needed
