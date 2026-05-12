@@ -32,6 +32,9 @@ pipeline {
                 echo 'Starting application with Docker Compose...'
 
                 sh '''
+                    docker stop eiitc-website-web-1 || true
+                    docker rm eiitc-website-web-1 || true
+
                     docker-compose down || true
                     docker-compose up -d
                 '''
