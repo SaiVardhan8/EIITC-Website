@@ -16,6 +16,20 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+                echo 'Running SonarQube analysis...'
+
+                sh '''
+                    sonar-scanner \
+                    -Dsonar.projectKey=eiitc-website \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=http://31.97.206.219:9000 \
+                    -Dsonar.login=squ_c5a7648ff85d7e50be27b71e8150294fba2ec4bd 
+               '''
+            }
+        }
+
         stage('Build') {
             steps {
                 echo 'Building Docker image...'
@@ -46,7 +60,7 @@ pipeline {
 
                 sh '''
                     sleep 15
-                    curl -f http://host.docker.internal:9040 || exit 1
+                    curl -f http://localhost:9040 || exit 1
                 '''
             }
         }
@@ -61,6 +75,7 @@ pipeline {
     }
 
     post {
+
         always {
             echo 'Cleaning up...'
         }
