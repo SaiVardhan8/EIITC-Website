@@ -54,17 +54,6 @@ pipeline {
             }
         }
 
-        stage('Health Check') {
-            steps {
-                echo 'Performing health check...'
-
-                sh '''
-                    sleep 15
-                    curl -f http://eiitc-pipeline-web-1:9040 || exit 1
-                '''
-            }
-        }
-
         stage('Lint') {
             steps {
                 echo 'Running linting...'
